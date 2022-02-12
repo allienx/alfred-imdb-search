@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.github.allienx.alfred-imdb-search</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>0210ED5B-5E43-4753-998F-34D407799E9C</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>073EC94A-0000-460C-AD63-BFFE19CEE0C3</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Alex Lin</string>
+	<key>description</key>
+	<string>Search IMDb by keyword</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>IMDb Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>imdb</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Loading...</string>
+				<key>script</key>
+				<string>query=$(echo $1 | tr '[:upper:]' '[:lower:]' | sed 's/ /_/g')
+first_letter=${query:0:1}
+
+curl --url "https://v2.sg.media-imdb.com/suggestion/$first_letter/$query.json" \
+     --header "Accept: application/json" \
+     | ./alfred-imdb-search-jq-v1.6 '.d | map({uid: .id, title: "\(.l) (\(.y))", subtitle: .s, arg: .id }) | { items: . }'</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>imdb-search.sh</string>
+				<key>subtext</key>
+				<string>Quickly find movies and tv shows</string>
+				<key>title</key>
+				<string>Search IMDb by keyword</string>
+				<key>type</key>
+				<integer>8</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>0210ED5B-5E43-4753-998F-34D407799E9C</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>https://www.imdb.com/title/{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>073EC94A-0000-460C-AD63-BFFE19CEE0C3</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Quickly find movies and tv shows.
+
+Open imdb.com for the selected title.</string>
+	<key>uidata</key>
+	<dict>
+		<key>0210ED5B-5E43-4753-998F-34D407799E9C</key>
+		<dict>
+			<key>xpos</key>
+			<integer>255</integer>
+			<key>ypos</key>
+			<integer>55</integer>
+		</dict>
+		<key>073EC94A-0000-460C-AD63-BFFE19CEE0C3</key>
+		<dict>
+			<key>xpos</key>
+			<integer>460</integer>
+			<key>ypos</key>
+			<integer>55</integer>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string>https://github.com/allienx/alfred-imdb-search</string>
+</dict>
+</plist>
