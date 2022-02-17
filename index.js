@@ -25,7 +25,7 @@ async function main() {
     const suggestions = res.data.d || []
 
     items.push(
-      suggestions.map((suggestion) => {
+      ...suggestions.map((suggestion) => {
         const { id, s: cast, yr: yearRange, y: year } = suggestion
 
         let title = suggestion.l
